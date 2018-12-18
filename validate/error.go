@@ -61,6 +61,16 @@ func (e InvalidTypeError) Error() string {
 	return fmt.Sprintf("invalid type, got: %v, wanted: %v", e.Got, e.Wanted)
 }
 
+type InvalidCallFunctionTypeError struct {
+	Wanted  wasm.ValueType
+	Got     wasm.ValueType
+	FnIndex uint32
+}
+
+func (e InvalidCallFunctionTypeError) Error() string {
+	return fmt.Sprintf("invalid call function type, function index: %d, got: %v, wanted: %v", e.FnIndex, e.Got, e.Wanted)
+}
+
 type InvalidElementIndexError uint32
 
 func (e InvalidElementIndexError) Error() string {

@@ -266,11 +266,11 @@ func verifyBody(fn *wasm.FunctionSig, body *wasm.FunctionBody, module *wasm.Modu
 			}
 
 			logger.Printf("Function being called: %v", fn)
-			for index := range fn.Sig.ParamTypes {
-				argType := fn.Sig.ParamTypes[len(fn.Sig.ParamTypes)-index-1]
+			for i := range fn.Sig.ParamTypes {
+				argType := fn.Sig.ParamTypes[len(fn.Sig.ParamTypes)-i-1]
 				operand, under := vm.popOperand()
 				if !vm.isPolymorphic() && (under || operand.Type != argType) {
-					return vm, InvalidTypeError{argType, operand.Type}
+					return vm, InvalidCallFunctionTypeError{argType, operand.Type, index}
 				}
 			}
 
